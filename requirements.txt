@@ -1,0 +1,20 @@
+# --- API e Servidor ---
+fastapi>=0.110.0
+uvicorn[standard]>=0.29.0
+python-multipart>=0.0.9
+
+# --- Validação e Configurações ---
+pydantic>=2.6.0
+pydantic-settings>=2.2.0
+
+# --- Processamento Assíncrono (Workers) ---
+celery>=5.3.6
+redis>=5.0.3
+
+# --- Banco de Dados e ORM ---
+sqlalchemy>=2.0.29
+alembic>=1.13.1
+psycopg2-binary>=2.9.9
+
+# --- Processamento de Vídeo ---
+ffmpeg-python>=0.2.0
