@@ -207,3 +207,7 @@ marimo/_lsp/
 __marimo__/
 
 nfs_storage/
+*.temp
+*.tmp
+*.log
+*.mbtree
