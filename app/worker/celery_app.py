@@ -1,19 +1,14 @@
-import os
 from celery import Celery
+from app.core.config import settings
 
-# Pega a URL do Redis das variáveis de ambiente (definidas no docker-compose.yml)
-# Se não encontrar, usa um valor padrão para evitar quebra (fallback)
-REDIS_URL = os.getenv("REDIS_URL", "redis://localhost:6379/0")
-
-# Inicializa o app do Celery
+# Agora o Celery pega a URL do Redis direto da classe Settings (que lê do .env)
 celery_app = Celery(
     "video_worker",
-    broker=REDIS_URL,
-    backend=REDIS_URL,
-    include=["app.worker.tasks"] # Diz ao Celery onde procurar as tarefas
+    broker=settings.REDIS_URL,
+    backend=settings.REDIS_URL,
+    include=["app.worker.tasks"]
 )
 
-# Configurações adicionais
 celery_app.conf.update(
     task_serializer="json",
     result_serializer="json",

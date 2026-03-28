@@ -22,6 +22,7 @@ services:
       - "8000:8000"
     volumes:
       - .:/code  # Mapeia sua pasta local para o contêiner (Hot-reload ativado)
+      - ./nfs_storage:/mnt/nfs/uploads
     env_file:
       - .env
     depends_on:
@@ -33,6 +34,7 @@ services:
     command: celery -A app.worker.celery_app worker --loglevel=info
     volumes:
       - .:/code
+      - ./nfs_storage:/mnt/nfs/uploads
     env_file:
       - .env
     depends_on:
