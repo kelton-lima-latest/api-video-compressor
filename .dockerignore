@@ -1,0 +1,6 @@
+nfs_storage/
+*.temp
+*.tmp
+*.log
+*.mbtree
+diff.txt

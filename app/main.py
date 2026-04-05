@@ -1,19 +1,30 @@
 from fastapi import FastAPI
-# Importação explícita apenas do 'router'
-from app.api.routes.videos import router as videos_router
+from fastapi.middleware.cors import CORSMiddleware
+from app.api.routes import videos
 
-app = FastAPI(
-    title="Video Compressor API",
-    description="API para upload e compressão de vídeos usando Celery e FFmpeg",
-    version="1.0.0"
+app = FastAPI(title="Video Compressor API")
+
+# 1. Defina as origens permitidas
+# Em desenvolvimento, você pode usar ["*"] para permitir tudo, 
+# mas o ideal é listar as portas comuns de frontend:
+origins = [
+    "http://localhost:3000",  # React padrão
+    "http://localhost:5173",  # Vite (React/Vue moderno) padrão
+    "http://127.0.0.1:5173",
+]
+
+# 2. Adicione o Middleware de CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],  # Permite todos os métodos (GET, POST, etc.)
+    allow_headers=["*"],  # Permite todos os headers
 )
 
-# Registra a rota usando a variável importada acima
-app.include_router(videos_router, prefix="/api/v1/videos", tags=["Videos"])
+# Inclui as rotas
+app.include_router(videos.router, prefix="/api/v1/videos", tags=["videos"])
 
-@app.get("/", tags=["Health"])
-def read_root():
-    return {
-        "status": "online",
-        "message": "Video Compressor API está rodando perfeitamente!"
-    }
+@app.get("/")
+async def root():
+    return {"message": "Video Compressor API is running"}
