@@ -211,3 +211,4 @@ nfs_storage/
 *.tmp
 *.log
 *.mbtree
+diff.txt
