@@ -17,9 +17,9 @@ services:
 
   api:
     build: .
-    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    command: uvicorn app.main:app --host 0.0.0.0 --port 9000 --reload
     ports:
-      - "8000:8000"
+      - "9000:9000"
     volumes:
       - .:/code  # Mapeia sua pasta local para o contêiner (Hot-reload ativado)
       - ./nfs_storage:/mnt/nfs/uploads

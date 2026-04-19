@@ -28,3 +28,7 @@ COPY --chown=appuser:appuser . /code/
 
 # 5. Última linha: Diz ao Docker para assumir o usuário seguro daqui em diante
 USER appuser
+
+# 6. O COMANDO QUE MANTÉM O CONTAINER VIVO
+# Nota: Removi o --reload, pois em produção (K8s) ele consome recursos desnecessários
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "9000"]
