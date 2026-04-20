@@ -11,7 +11,7 @@ from app.worker.tasks import compress_video_task
 from fastapi.responses import FileResponse
 
 router = APIRouter()
-NFS_UPLOAD_DIR = "/mnt/nfs/uploads"
+NFS_UPLOAD_DIR = os.getenv("UPLOAD_DIR", "/tmp/uploads")
 
 @router.post("/upload/", status_code=202)
 async def upload_video(file: UploadFile = File(...), db: Session = Depends(get_db)):
